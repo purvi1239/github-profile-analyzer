@@ -4,30 +4,31 @@ function SearchBar({onSearch}) {
   const [username, setUsername] = useState("");
 
   return (
-    <div style={{ marginTop: "20px" }}>
+   <div style={{ display: "flex", gap: "10px" }}>
   <input
     type="text"
     placeholder="Enter GitHub username"
     value={username}
     onChange={(e) => setUsername(e.target.value)}
     style={{
-      padding: "10px",
+      padding: "12px",
       width: "250px",
-      borderRadius: "5px",
-      border: "1px solid #ccc"
+      borderRadius: "6px",
+      border: "none",
+      outline: "none",
     }}
   />
 
   <button
     onClick={() => onSearch(username)}
     style={{
-      padding: "10px 15px",
-      marginLeft: "10px",
-      borderRadius: "5px",
+      padding: "12px 16px",
+      borderRadius: "6px",
       border: "none",
-      backgroundColor: "#333",
+      backgroundColor: "#238636", // GitHub green
       color: "white",
-      cursor: "pointer"
+      cursor: "pointer",
+      fontWeight: "bold",
     }}
   >
     Search
