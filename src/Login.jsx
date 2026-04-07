@@ -5,71 +5,63 @@ import { auth } from "./firebase";
 export default function Login({ switchToSignup }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
+    }
+    setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful 🚀");
+      // Successfully logged in
     } catch (err) {
       alert(err.message);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="fade-in glass" style={styles.container}>
-      <h2>Login</h2>
+    <div className="auth-container">
+      <div className="auth-card">
+        <div style={{ width: "100%", textAlign: "center" }}>
+          <h2 className="auth-title">Welcome Back</h2>
+          <p className="auth-subtitle">Login to analyze GitHub profiles</p>
+        </div>
+        
+        <div className="auth-input-group">
+          <input
+            className="auth-input"
+            placeholder="Email Address"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        
+        <div className="auth-input-group">
+          <input
+            className="auth-input"
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        style={styles.input}
-      />
+        <button className="auth-button" onClick={handleLogin} disabled={isLoading}>
+          {isLoading ? (
+            <div className="spinner"></div> // Optional: can add a CSS spinner if wanted, or just text
+          ) : (
+             "Login"
+          )}
+        </button>
 
-      <input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        style={styles.input}
-      />
-
-      <button onClick={handleLogin} style={styles.button}>
-        Login
-      </button>
-
-      <p onClick={switchToSignup} style={styles.link}>
-        Don't have an account? Sign Up
-      </p>
+        <p className="auth-link" onClick={switchToSignup}>
+          Don't have an account? <span>Sign Up</span>
+        </p>
+      </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "15px",
-  },
-  input: {
-    padding: "12px",
-    width: "250px",
-    borderRadius: "6px",
-    border: "1px solid #30363d",
-    background: "#0d1117",
-    color: "white",
-    outline: "none",
-  },
-  button: {
-    padding: "12px 20px",
-    background: "#238636",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    transition: "0.3s",
-  }
-};

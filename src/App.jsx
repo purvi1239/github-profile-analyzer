@@ -56,28 +56,11 @@ if (!firebaseUser) {
   );
 }
 
-<div style={headerStyle}>
-  GitHub Profile Analyser
-</div>
-
-const headerStyle = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  textAlign: "center",
-  padding: "15px",
-  fontSize: "22px",
-  fontWeight: "600",
-  background: "#0d1117",
-  color: "#58a6ff",
-  borderBottom: "1px solid #30363d",
-  zIndex: 1000,
-  letterSpacing: "1px",
-};
-
   return (
-    <div style={{ color: "white", fontFamily: "monospace" }}>
+    <div style={{ color: "white", fontFamily: "monospace", paddingTop: "60px" }}>
+      <div style={headerStyle}>
+        GitHub Profile Analyser
+      </div>
       
       {/* 🟢 LANDING SCREEN */}
       {!searched && (
@@ -111,17 +94,12 @@ const headerStyle = {
 
 
         <button
-  onClick={() => signOut(auth)}
-  style={{
-    position: "absolute",
-    top: "20px",
-    right: "20px",
-    padding: "10px",
-    cursor: "pointer",
-  }}
->
-  Logout
-</button>
+          className="logout-btn"
+          onClick={() => signOut(auth)}
+        >
+          <svg style={{width: '18px', height:'18px'}} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+          Logout
+        </button>
 
 
           {/* Top search */}
@@ -183,5 +161,21 @@ function StatCard({ title, value }) {
     </div>
   );
 }
+
+const headerStyle = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  textAlign: "center",
+  padding: "15px",
+  fontSize: "22px",
+  fontWeight: "600",
+  background: "#0d1117",
+  color: "#58a6ff",
+  borderBottom: "1px solid #30363d",
+  zIndex: 1000,
+  letterSpacing: "1px",
+};
 
 export default App;
