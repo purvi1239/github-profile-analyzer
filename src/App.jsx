@@ -10,22 +10,22 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 function App() {
-  
+
   const [user, setUser] = useState(null);
   const [repos, setRepos] = useState([]);
   const [searched, setSearched] = useState(false);
 
   //login state
   const [firebaseUser, setFirebaseUser] = useState(null);
-const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
-    setFirebaseUser(user);
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
+    });
 
-  return () => unsubscribe();
-}, []);
+    return () => unsubscribe();
+  }, []);
 
   const fetchGitHubUser = async (username) => {
     try {
@@ -48,23 +48,23 @@ useEffect(() => {
   const totalStars = repos.reduce((sum, r) => sum + r.stargazers_count, 0);
 
 
-if (!firebaseUser) {
-  return isLogin ? (
-    <Login switchToSignup={() => setIsLogin(false)} />
-  ) : (
-    <Signup switchToLogin={() => setIsLogin(true)} />
-  );
-}
+  if (!firebaseUser) {
+    return isLogin ? (
+      <Login switchToSignup={() => setIsLogin(false)} />
+    ) : (
+      <Signup switchToLogin={() => setIsLogin(true)} />
+    );
+  }
 
   return (
     <div style={{ color: "white", fontFamily: "monospace", paddingTop: "60px" }}>
       <div style={headerStyle}>
         GitHub Profile Analyser
       </div>
-      
+
       {/* 🟢 LANDING SCREEN */}
       {!searched && (
-        
+
         <div
           style={{
             height: "100vh",
@@ -75,7 +75,7 @@ if (!firebaseUser) {
             background: "#0d1117",
           }}
         >
-          <h1 style={{color:"white", fontSize: "48px", letterSpacing: "2px" }}>
+          <h1 style={{ color: "white", fontSize: "48px", letterSpacing: "2px" }}>
             GitHub Profile Monitor
           </h1>
 
@@ -90,16 +90,16 @@ if (!firebaseUser) {
       {/* 🔵 DASHBOARD */}
       {searched && user && (
         <div style={{ padding: "40px", background: "#0d1117", minHeight: "100vh" }}>
-          
 
 
-        <button
-          className="logout-btn"
-          onClick={() => signOut(auth)}
-        >
-          <svg style={{width: '18px', height:'18px'}} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-          Logout
-        </button>
+
+          <button
+            className="logout-btn"
+            onClick={() => signOut(auth)}
+          >
+            <svg style={{ width: '18px', height: '18px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+            Logout
+          </button>
 
 
           {/* Top search */}
