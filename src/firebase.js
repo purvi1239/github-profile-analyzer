@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyD9TP_6Y7GoqVnmyZ9q1T3tnpenXEJ3eXc",
+  apiKey: "AIzaSyA3XTdQO3IQafW1e0y9P1lWeucCAT9BoQE",
   authDomain: "githubanalyzer-57551.firebaseapp.com",
   projectId: "githubanalyzer-57551",
   storageBucket: "githubanalyzer-57551.firebasestorage.app",
