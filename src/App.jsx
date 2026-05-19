@@ -11,10 +11,12 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Compare from "./pages/Compare";
 import History from "./pages/History";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = useState(undefined);
   const [isLogin, setIsLogin] = useState(true);
+  const [showAuth, setShowAuth] = useState(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -36,16 +38,44 @@ function App() {
     );
   }
 
-  // Not logged in
+  // Not logged in — show landing page or auth form
   if (!firebaseUser) {
+    if (showAuth) {
+      return (
+        <ThemeProvider>
+          <Toaster position="top-right" toastOptions={{
+            style: { background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border)", fontFamily: "monospace" },
+          }} />
+          {isLogin
+            ? <Login switchToSignup={() => setIsLogin(false)} />
+            : <Signup switchToLogin={() => setIsLogin(true)} />}
+          <button
+            onClick={() => setShowAuth(false)}
+            style={{
+              position: "fixed", top: 20, left: 20,
+              background: "rgba(255,255,255,0.08)", border: "1px solid #30363d",
+              color: "#8b949e", padding: "8px 16px", borderRadius: 8,
+              cursor: "pointer", fontFamily: "monospace", fontSize: 13,
+              transition: "all 0.2s ease", zIndex: 1001,
+            }}
+            onMouseEnter={e => { e.target.style.borderColor = "#58a6ff"; e.target.style.color = "#58a6ff"; }}
+            onMouseLeave={e => { e.target.style.borderColor = "#30363d"; e.target.style.color = "#8b949e"; }}
+          >
+            ← Back
+          </button>
+        </ThemeProvider>
+      );
+    }
+
     return (
       <ThemeProvider>
         <Toaster position="top-right" toastOptions={{
           style: { background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border)", fontFamily: "monospace" },
         }} />
-        {isLogin
-          ? <Login switchToSignup={() => setIsLogin(false)} />
-          : <Signup switchToLogin={() => setIsLogin(true)} />}
+        <LandingPage
+          onSignIn={() => { setIsLogin(true); setShowAuth(true); }}
+          onGetStarted={() => { setIsLogin(false); setShowAuth(true); }}
+        />
       </ThemeProvider>
     );
   }
@@ -59,10 +89,11 @@ function App() {
         }} />
         <Navbar firebaseUser={firebaseUser} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/dashboard" element={<Home />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/history" element={<History />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
