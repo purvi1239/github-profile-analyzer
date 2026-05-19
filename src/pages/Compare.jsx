@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
 import ProfileCard from "../components/ProfileCard";
+import RoleFitCompare from "../components/RoleFitCompare";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -161,6 +162,14 @@ export default function Compare() {
               </tbody>
             </table>
           </div>
+
+          {/* Role Fit Comparison */}
+          <RoleFitCompare
+            repos1={repos1}
+            repos2={repos2}
+            user1={data1}
+            user2={data2}
+          />
         </div>
       )}
     </div>

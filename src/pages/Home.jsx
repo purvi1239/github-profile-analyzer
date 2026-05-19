@@ -7,6 +7,7 @@ import StatCard from "../components/StatCard";
 import LanguageChart from "../components/LanguageChart";
 import ContributionHeatmap from "../components/ContributionHeatmap";
 import RepoList from "../components/RepoList";
+import RoleFitAnalysis from "../components/RoleFitAnalysis";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -120,6 +121,8 @@ export default function Home() {
           <ContributionHeatmap events={events} />
 
           <LanguageChart repos={repos} />
+
+          <RoleFitAnalysis repos={repos} />
 
           <RepoList repos={repos} />
         </div>
