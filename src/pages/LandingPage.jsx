@@ -108,12 +108,7 @@ export default function LandingPage({ onSignIn, onGetStarted }) {
               <button className="lp-btn lp-btn--green lp-btn--lg lp-btn--pulse" onClick={onGetStarted}>
                 Get Started Free →
               </button>
-              <button className="lp-btn lp-btn--ghost lp-btn--lg" onClick={onSignIn}>
-                See Demo
-              </button>
             </div>
-            <p className="lp-hero__note">No credit card required • Free forever</p>
-            <p className="lp-hero__proof">⭐ Trusted by 500+ recruiters and developers</p>
           </div>
 
           <div className="lp-hero__right">
@@ -283,7 +278,6 @@ export default function LandingPage({ onSignIn, onGetStarted }) {
           <button className="lp-btn lp-btn--green lp-btn--lg lp-btn--pulse" onClick={onGetStarted}>
             Get Started For Free →
           </button>
-          <p className="lp-cta__note">Free forever • No credit card required</p>
         </div>
       </section>
 
