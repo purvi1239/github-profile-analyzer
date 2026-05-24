@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../LandingPage.css";
 
 /* ── Intersection Observer hook for fade-in animations ── */
@@ -14,6 +14,7 @@ function useInView(options = {}) {
     );
     obs.observe(el);
     return () => obs.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return [ref, inView];
 }
@@ -51,6 +52,17 @@ const COMPARISON_FEATURES = [
   "Language overlap analysis",
   "Role fit percentage",
   "Shareable comparison links",
+];
+
+const MOCK_HEATMAP_OPACITIES = [
+  0.15, 0.45, 0.08, 0.65, 0.85, 0.08, 0.35,
+  0.75, 0.08, 0.55, 0.95, 0.08, 0.25, 0.65,
+  0.08, 0.85, 0.35, 0.08, 0.75, 0.55, 0.08,
+  0.95, 0.15, 0.08, 0.65, 0.85, 0.08, 0.35,
+  0.75, 0.08, 0.55, 0.95, 0.08, 0.25, 0.65,
+  0.08, 0.85, 0.35, 0.08, 0.75, 0.55, 0.08,
+  0.95, 0.15, 0.08, 0.65, 0.85, 0.08, 0.35,
+  0.75, 0.08, 0.55, 0.95, 0.08, 0.25, 0.65
 ];
 
 /* ────────────────────────────────────────────────── */
@@ -167,7 +179,7 @@ export default function LandingPage({ onSignIn, onGetStarted }) {
                       <div
                         key={i}
                         className="lp-mockup__hm-cell"
-                        style={{ opacity: Math.random() > 0.35 ? 0.25 + Math.random() * 0.75 : 0.08 }}
+                        style={{ opacity: MOCK_HEATMAP_OPACITIES[i] }}
                       />
                     ))}
                   </div>

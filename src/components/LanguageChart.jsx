@@ -6,6 +6,26 @@ const COLORS = [
   "#d2a8ff", "#ff7b72", "#ffa657", "#7ee787",
 ];
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const { name, percentage } = payload[0].payload;
+    return (
+      <div style={{
+        background: "#161b22",
+        border: "1px solid #30363d",
+        borderRadius: "8px",
+        padding: "10px 14px",
+        color: "#e6edf3",
+        fontFamily: "var(--font)",
+        fontSize: "13px",
+      }}>
+        <strong>{name}</strong>: {percentage}%
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function LanguageChart({ repos }) {
   if (!repos || repos.length === 0) return null;
 
@@ -24,28 +44,11 @@ export default function LanguageChart({ repos }) {
   const data = Object.entries(langCounts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8)
-    .map(([name, value]) => ({ name, value }));
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const { name, value } = payload[0].payload;
-      const pct = ((value / total) * 100).toFixed(1);
-      return (
-        <div style={{
-          background: "#161b22",
-          border: "1px solid #30363d",
-          borderRadius: "8px",
-          padding: "10px 14px",
-          color: "#e6edf3",
-          fontFamily: "var(--font)",
-          fontSize: "13px",
-        }}>
-          <strong>{name}</strong>: {pct}%
-        </div>
-      );
-    }
-    return null;
-  };
+    .map(([name, value]) => ({
+      name,
+      value,
+      percentage: ((value / total) * 100).toFixed(1),
+    }));
 
   return (
     <div className="language-chart-container fade-in">

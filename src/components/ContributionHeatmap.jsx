@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
 // Heatmap intensity colors
 const LEVELS = [
@@ -85,7 +85,6 @@ export default function ContributionHeatmap({ events }) {
   // Month labels
   const monthLabels = [];
   let lastMonth = -1;
-  let xIdx = 0;
   for (let col = 0; col < columns.length; col++) {
     for (let row = 0; row < 7; row++) {
       const cell = columns[col][row];
