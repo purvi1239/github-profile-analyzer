@@ -4,7 +4,7 @@
 
 
 ## 🌐 Live Demo
-**[github-analyser.vercel.app](https://your-live-link.com)**
+**https://github-profile-analyzer-nine-pi.vercel.app**
 
 ---
 
